@@ -22,6 +22,9 @@ final class AppState {
     private let backgroundTaskController: BackgroundTaskController
     private var notificationTask: Task<Void, Never>?
 
+    // Push mode
+    let pushService = PushSyncService()
+
     var syncConfiguration: SyncConfiguration
     var pairingQRCode: PairingQRCode?
     var isServerRunning: Bool = false
@@ -58,6 +61,9 @@ final class AppState {
                 }
             }
         )
+
+        // Load push configuration
+        pushService.loadConfiguration()
 
         // Pre-warm TLS identity on a background thread to avoid first-run UI stalls.
         Task.detached(priority: .utility) {
@@ -310,5 +316,23 @@ final class AppState {
         // We can only check if we've REQUESTED authorization (user saw the dialog).
         // This is Apple's privacy design - apps can't know if health data access was denied.
         healthAuthorizationStatus = await healthService.hasRequestedAuthorization(for: syncConfiguration.enabledTypes)
+    }
+}
+
+// MARK: - Push Mode
+
+extension AppState {
+    func savePushConfiguration(url: String, token: String, enabled: Bool, intervalMinutes: Int) {
+        pushService.saveConfiguration(url: url, token: token, enabled: enabled, intervalMinutes: intervalMinutes)
+    }
+
+    func pushNow() async {
+        await pushService.push(reason: "manual")
+    }
+
+    func startPushServiceIfNeeded() {
+        if pushService.isPushEnabled {
+            pushService.start()
+        }
     }
 }

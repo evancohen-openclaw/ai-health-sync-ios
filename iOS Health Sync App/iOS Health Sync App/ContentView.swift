@@ -24,6 +24,7 @@ struct ContentView: View {
                 pairingSection
                 dataTypesSection
                 auditSection
+                pushModeSection
                 settingsSection
             }
             .listStyle(.insetGrouped)
@@ -366,6 +367,25 @@ struct ContentView: View {
             return .pink
         default:
             return .secondary
+        }
+    }
+
+    private var pushModeSection: some View {
+        Section("Push Mode") {
+            HStack {
+                Image(systemName: appState.pushService.isPushEnabled ? "arrow.up.circle.fill" : "arrow.up.circle")
+                    .foregroundStyle(appState.pushService.isPushEnabled ? .green : .secondary)
+                Text("Status")
+                Spacer()
+                Text(appState.pushService.isPushEnabled ? "Enabled" : "Disabled")
+                    .foregroundStyle(.secondary)
+            }
+
+            NavigationLink {
+                PushConfigView()
+            } label: {
+                Label("Configure Push Mode", systemImage: "gear.badge.arrow.triangle.2.circlepath")
+            }
         }
     }
 

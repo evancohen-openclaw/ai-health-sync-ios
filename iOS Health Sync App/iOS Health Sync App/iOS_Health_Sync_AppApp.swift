@@ -35,6 +35,7 @@ struct iOS_Health_Sync_AppApp: App {
                 .environment(appState)
                 .modelContainer(modelContainer)
                 .task {
+                    appState.startPushServiceIfNeeded()
                     appState.startNotificationObservers()
                 }
         }
