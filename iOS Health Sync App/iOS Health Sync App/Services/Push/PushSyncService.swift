@@ -113,17 +113,36 @@ final class PushSyncService {
         .heartRate,
         .heartRateVariabilitySDNN,
         .restingHeartRate,
+        .walkingHeartRateAverage,
         .stepCount,
         .activeEnergyBurned,
+        .basalEnergyBurned,
+        .distanceWalkingRunning,
+        .distanceCycling,
+        .flightsClimbed,
         .respiratoryRate,
         .oxygenSaturation,
-        .bodyMass
+        .bodyMass,
+        .bodyMassIndex,
+        .bodyFatPercentage,
+        .leanBodyMass,
+        .vo2Max,
+        .height
     ]
 
     private static let pushDataTypes: [HealthDataType] = [
-        .sleepAnalysis, .heartRate, .heartRateVariability,
-        .restingHeartRate, .steps, .activeEnergyBurned,
-        .respiratoryRate, .bloodOxygen, .weight
+        // Vitals
+        .heartRate, .heartRateVariability, .restingHeartRate,
+        .walkingHeartRateAverage, .respiratoryRate, .bloodOxygen,
+        // Sleep
+        .sleepAnalysis,
+        // Activity
+        .steps, .activeEnergyBurned, .basalEnergyBurned,
+        .distanceWalkingRunning, .distanceCycling, .flightsClimbed,
+        // Fitness
+        .vo2Max,
+        // Body
+        .weight, .height, .bodyMassIndex, .bodyFatPercentage, .leanBodyMass
     ]
 
     // MARK: - Configuration
