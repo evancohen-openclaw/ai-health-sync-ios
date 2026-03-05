@@ -225,6 +225,11 @@ final class PushSyncService {
             }
             healthStore.execute(query)
             observerQueries.append(query)
+            healthStore.enableBackgroundDelivery(for: quantityType, frequency: .immediate) { success, error in
+                if let error {
+                    Self.logger.error("Failed to enable background delivery for \(identifier.rawValue): \(error.localizedDescription)")
+                }
+            }
         }
 
         if let sleepType = HKCategoryType.categoryType(forIdentifier: .sleepAnalysis) {
@@ -237,6 +242,11 @@ final class PushSyncService {
             }
             healthStore.execute(sleepQuery)
             observerQueries.append(sleepQuery)
+            healthStore.enableBackgroundDelivery(for: sleepType, frequency: .immediate) { success, error in
+                if let error {
+                    Self.logger.error("Failed to enable background delivery for sleepAnalysis: \(error.localizedDescription)")
+                }
+            }
         }
 
         Self.logger.info("Registered \(self.observerQueries.count) HK observer queries.")

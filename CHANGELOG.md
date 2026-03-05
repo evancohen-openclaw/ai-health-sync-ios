@@ -5,6 +5,11 @@ All notable changes to AI Health Sync will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-03-04
+
+### Fixed
+- Added `enableBackgroundDelivery` for all observed HealthKit types — push sync now works reliably when the app is backgrounded
+
 ## [1.0.0] - 2026-02-26
 
 First public release of HealthSync Helper App.
